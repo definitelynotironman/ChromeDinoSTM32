@@ -59,9 +59,28 @@ static void test_controls_and_collision(void)
     dino_game_tick(&game, 0u, DINO_DUCK);
     CHECK(game.state == DINO_RUNNING && game.ducking); /* Duck upon landing. */
 }
+static void test_pause_and_jump_buffer(void)
+{
+    DinoGame game = running_game();
+    dino_game_tick(&game, DINO_JUMP, DINO_JUMP);
+    dino_game_tick(&game, DINO_PAUSE, 0u);
+    DinoGame snapshot = game;
+    for (unsigned i = 0u; i < 1000u; ++i) dino_game_tick(&game, 0u, 0u);
+    CHECK(memcmp(&game, &snapshot, sizeof game) == 0);
+    dino_game_tick(&game, DINO_PAUSE, 0u);
+    CHECK(game.state == DINO_RUNNING && game.jump_ms == snapshot.jump_ms);
+    game.jump_ms = 40u;
+    dino_game_tick(&game, DINO_JUMP, DINO_JUMP);
+    CHECK(game.jump_ms == 20u);
+    dino_game_tick(&game, 0u, 0u);
+    CHECK(game.jump_ms == 680u); /* Buffered edge launches at landing. */
+    dino_game_tick(&game, DINO_HOME, 0u);
+    CHECK(game.state == DINO_READY);
+}
 int main(void)
 {
     test_controls_and_collision();
-    puts("PASS: controls_and_collision");
+    test_pause_and_jump_buffer();
+    puts("PASS: controls_and_collision, pause_and_jump_buffer");
     return 0;
 }
