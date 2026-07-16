@@ -77,10 +77,32 @@ static void test_pause_and_jump_buffer(void)
     dino_game_tick(&game, DINO_HOME, 0u);
     CHECK(game.state == DINO_READY);
 }
+static void test_buttons(void)
+{
+    DinoButtons buttons;
+    dino_buttons_init(&buttons, 0u, 0u);
+    CHECK(dino_buttons_poll(&buttons, 1u, 1u) == 0u);
+    CHECK(dino_buttons_poll(&buttons, 0u, 8u) == 0u);
+    CHECK(dino_buttons_poll(&buttons, 1u, 10u) == 0u);
+    CHECK(dino_buttons_poll(&buttons, 1u, 29u) == 0u);
+    CHECK(dino_buttons_poll(&buttons, 1u, 30u) == 1u);
+    CHECK(dino_buttons_poll(&buttons, 1u, 100u) == 0u && buttons.held == 1u);
+    CHECK(dino_buttons_poll(&buttons, 3u, 101u) == 0u);
+    CHECK(dino_buttons_poll(&buttons, 2u, 110u) == 0u);
+    CHECK(dino_buttons_poll(&buttons, 2u, 121u) == 2u);
+    CHECK(dino_buttons_poll(&buttons, 2u, 130u) == 0u && buttons.held == 2u);
+    dino_buttons_init(&buttons, 8u, UINT32_MAX - 20u);
+    CHECK(dino_buttons_poll(&buttons, 8u, UINT32_MAX - 10u) == 0u);
+    CHECK(dino_buttons_poll(&buttons, 0u, UINT32_MAX - 5u) == 0u);
+    CHECK(dino_buttons_poll(&buttons, 0u, 14u) == 0u && buttons.held == 0u);
+    CHECK(dino_buttons_poll(&buttons, 1u, 15u) == 0u);
+    CHECK(dino_buttons_poll(&buttons, 1u, 35u) == 1u);
+}
 int main(void)
 {
     test_controls_and_collision();
     test_pause_and_jump_buffer();
-    puts("PASS: controls_and_collision, pause_and_jump_buffer");
+    test_buttons();
+    puts("PASS: controls_and_collision, pause_and_jump_buffer, buttons");
     return 0;
 }
