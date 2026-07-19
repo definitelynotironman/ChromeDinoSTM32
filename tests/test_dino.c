@@ -98,11 +98,41 @@ static void test_buttons(void)
     CHECK(dino_buttons_poll(&buttons, 1u, 15u) == 0u);
     CHECK(dino_buttons_poll(&buttons, 1u, 35u) == 1u);
 }
+static void test_render_and_limits(void)
+{
+    struct { uint8_t before; uint8_t frame[2][DINO_COLUMNS]; uint8_t after; } output;
+    memset(&output, 0xa5, sizeof output);
+    DinoGame game;
+    dino_game_init(&game, 0u);
+    CHECK(game.random != 0u);
+    for (unsigned state = DINO_READY; state <= DINO_GAME_OVER; ++state) {
+        game.state = (DinoState)state;
+        game.score = 99999u;
+        game.best = 99999u;
+        dino_game_render(&game, output.frame);
+        CHECK(output.before == 0xa5 && output.after == 0xa5);
+        for (unsigned row = 0; row < 2u; ++row)
+            for (unsigned col = 0; col < DINO_COLUMNS; ++col)
+                CHECK(output.frame[row][col] < 8u || output.frame[row][col] >= ' ');
+    }
+    game = running_game();
+    dino_game_render(&game, output.frame);
+    CHECK(output.frame[1][DINO_PLAYER_COLUMN] == 0u); /* NUL is a sprite. */
+    obstacle_at(&game, DINO_CACTUS, -1);
+    game.obstacles[1] = (DinoObstacle){16, DINO_BIRD, true};
+    dino_game_render(&game, output.frame);
+    CHECK(output.before == 0xa5 && output.after == 0xa5);
+    game.score = 99999u;
+    game.scroll_ms = 80u;
+    dino_game_tick(&game, 0u, 0u);
+    CHECK(game.score == 99999u && dino_game_scroll_period(&game) == 90u);
+}
 int main(void)
 {
     test_controls_and_collision();
     test_pause_and_jump_buffer();
     test_buttons();
-    puts("PASS: controls_and_collision, pause_and_jump_buffer, buttons");
+    test_render_and_limits();
+    puts("PASS: controls_and_collision, pause_and_jump_buffer, buttons, render_and_limits");
     return 0;
 }
