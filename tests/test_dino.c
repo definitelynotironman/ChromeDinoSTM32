@@ -127,12 +127,56 @@ static void test_render_and_limits(void)
     dino_game_tick(&game, 0u, 0u);
     CHECK(game.score == 99999u && dino_game_scroll_period(&game) == 90u);
 }
+static void test_long_courses(void)
+{
+    /* Drive a simple reaction player across many seeded courses. This checks
+     * spawn capacity, score progression, bird unlock and maximum-speed play. */
+    unsigned birds = 0u;
+    for (uint32_t seed = 1u; seed <= 32u; ++seed) {
+        DinoGame game;
+        dino_game_init(&game, seed);
+        dino_game_tick(&game, DINO_JUMP, 0u);
+        int32_t last_spawn_score = -100;
+        uint32_t old_score = 0u;
+        for (unsigned step = 0u; step < 40000u; ++step) {
+            uint8_t press = 0u;
+            for (unsigned i = 0u; i < DINO_OBSTACLES; ++i) {
+                DinoObstacle *obstacle = &game.obstacles[i];
+                if (obstacle->active && obstacle->column == 2 && game.jump_ms == 0u)
+                    press = DINO_JUMP;
+            }
+            dino_game_tick(&game, press, 0u);
+            CHECK(game.state == DINO_RUNNING);
+            CHECK(game.best >= game.score && game.spawn_steps >= 1u);
+            CHECK(dino_game_scroll_period(&game) >= 90u);
+            if (game.score != old_score) {
+                for (unsigned i = 0u; i < DINO_OBSTACLES; ++i) {
+                    DinoObstacle *obstacle = &game.obstacles[i];
+                    if (!obstacle->active) continue;
+                    CHECK(obstacle->column >= 0 && obstacle->column < 16);
+                    if (obstacle->column == 15) {
+                        CHECK((int32_t)game.score - last_spawn_score >= 9);
+                        last_spawn_score = (int32_t)game.score;
+                        if (obstacle->kind == DINO_BIRD) {
+                            CHECK(game.score >= 50u);
+                            ++birds;
+                        }
+                    }
+                }
+                old_score = game.score;
+            }
+        }
+        CHECK(game.score > 5000u);
+    }
+    CHECK(birds > 100u);
+}
 int main(void)
 {
     test_controls_and_collision();
     test_pause_and_jump_buffer();
     test_buttons();
     test_render_and_limits();
-    puts("PASS: controls_and_collision, pause_and_jump_buffer, buttons, render_and_limits");
+    test_long_courses();
+    puts("PASS: controls_and_collision, pause_and_jump_buffer, buttons, render_and_limits, long_courses");
     return 0;
 }
