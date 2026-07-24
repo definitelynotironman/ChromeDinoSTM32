@@ -5,6 +5,7 @@
  */
 #include "board_io.h"
 #include "dino_buttons.h"
+#include "dino_sprites.h"
 #include "main.h"
 #include <string.h>
 
@@ -14,18 +15,6 @@ static uint8_t lcd_previous[2][DINO_COLUMNS];
 static bool lcd_previous_valid;
 static DinoButtons buttons;
 
-/* Eight 5x8 pixel characters fill the controller's 64-byte CGRAM. Birds use
- * upper pixels and the duck uses lower pixels, making their clearance visible. */
-static const uint8_t sprites[8][8] = {
-    {0x07,0x05,0x07,0x16,0x1f,0x0e,0x0a,0x12}, /* Run, left foot. */
-    {0x07,0x05,0x07,0x16,0x1f,0x0e,0x0a,0x09}, /* Run, right foot. */
-    {0x07,0x05,0x07,0x16,0x1f,0x0e,0x09,0x00}, /* Jump. */
-    {0x00,0x00,0x00,0x00,0x03,0x1d,0x1f,0x0a}, /* Duck. */
-    {0x04,0x05,0x15,0x16,0x0c,0x04,0x04,0x0e}, /* Cactus. */
-    {0x04,0x16,0x1f,0x06,0x00,0x00,0x00,0x00}, /* Bird, wings up. */
-    {0x00,0x06,0x1f,0x16,0x04,0x00,0x00,0x00}, /* Bird, wings down. */
-    {0x07,0x02,0x07,0x16,0x1f,0x0e,0x0a,0x11}  /* Crash. */
-};
 
 static void gpio_output(GPIO_TypeDef *port, uint32_t pin)
 {
@@ -124,7 +113,7 @@ void board_io_init(void)
 
     lcd_write(0x40u, false); /* Select CGRAM; stream eight sprite definitions. */
     for (uint32_t glyph = 0u; glyph < 8u; ++glyph)
-        for (uint32_t row = 0u; row < 8u; ++row) lcd_write(sprites[glyph][row], true);
+        for (uint32_t row = 0u; row < 8u; ++row) lcd_write(dino_sprites[glyph][row], true);
     lcd_write(0x80u, false); /* Return to visible display RAM. */
     dino_buttons_init(&buttons, (uint8_t)(~GPIOA->IDR) & 0x0fu, HAL_GetTick());
     board_status(false);
