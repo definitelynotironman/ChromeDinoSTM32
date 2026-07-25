@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Build local firmware or host checks using installed compilers only."""
 import argparse
+import hashlib
+import json
 import os
 from pathlib import Path
 import shutil
@@ -68,6 +70,15 @@ def build(args):
     for extension, fmt in [('hex', 'ihex'), ('bin', 'binary')]:
         run([tools / ('arm-none-eabi-objcopy' + suffix), '-O', fmt, elf, elf.with_suffix('.' + extension)])
     run([tools / ('arm-none-eabi-size' + suffix), elf])
+    run([sys.executable, ROOT / 'tools' / 'verify_firmware.py', elf])
+    manifest = {
+        'configuration': args.config,
+        'compiler': subprocess.check_output([compiler, '--version'], text=True).splitlines()[0],
+        'cpu': 'cortex-m0', 'device': 'STM32F051C6',
+        'images': {image.name: hashlib.sha256(image.read_bytes()).hexdigest()
+                   for image in [elf, elf.with_suffix('.hex'), elf.with_suffix('.bin')]},
+    }
+    (out / 'build-manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
     print(f'Firmware: {out}', flush=True)
     return elf
 
