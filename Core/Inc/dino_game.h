@@ -1,14 +1,11 @@
 #ifndef DINO_GAME_H
 #define DINO_GAME_H
+#include "dino_config.h"
 #include <stdbool.h>
 #include <stdint.h>
 
 /* Each object owns its state. The engine uses no GPIO, heap or global clock;
  * the application supplies debounced input and a fixed 20 ms time step. */
-#define DINO_TICK_MS 20u
-#define DINO_COLUMNS 16u
-#define DINO_OBSTACLES 3u
-#define DINO_PLAYER_COLUMN 1
 
 enum { DINO_JUMP = 1u, DINO_DUCK = 2u, DINO_PAUSE = 4u, DINO_HOME = 8u };
 typedef enum { DINO_READY, DINO_RUNNING, DINO_PAUSED, DINO_GAME_OVER } DinoState;

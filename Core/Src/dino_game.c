@@ -1,8 +1,5 @@
 #include "dino_game.h"
 #include <string.h>
-#define JUMP_DURATION_MS 680u
-#define JUMP_BUFFER_MS 120u
-#define MAX_SCORE 99999u
 
 /* Local random state permits repeatable tests without libc's global rand. */
 static uint32_t random_next(DinoGame *game)
@@ -31,9 +28,10 @@ static void start_run(DinoGame *game)
 }
 uint16_t dino_game_scroll_period(const DinoGame *game)
 {
-    uint32_t level = game->score / 50u;
-    if (level > 9u) level = 9u;
-    return (uint16_t)(180u - level * 10u);
+    uint32_t level = game->score / DINO_LEVEL_POINTS;
+    const uint32_t max_level = (DINO_SCROLL_START_MS - DINO_SCROLL_MIN_MS) / DINO_SPEED_STEP_MS;
+    if (level > max_level) level = max_level;
+    return (uint16_t)(DINO_SCROLL_START_MS - level * DINO_SPEED_STEP_MS);
 }
 static void check_collisions(DinoGame *game)
 {
@@ -64,13 +62,14 @@ static void scroll_world(DinoGame *game)
             if (obstacle->active) continue;
             obstacle->active = true;
             obstacle->column = (int8_t)(DINO_COLUMNS - 1u);
-            obstacle->kind = game->score >= 50u && (random_next(game) & 3u) == 0u
+            obstacle->kind = game->score >= DINO_BIRD_POINTS && (random_next(game) & 3u) == 0u
                            ? DINO_BIRD : DINO_CACTUS;
             break;
         }
-        game->spawn_steps = (uint8_t)(9u + random_next(game) % 4u);
+        game->spawn_steps = (uint8_t)(DINO_SPAWN_GAP_MIN + random_next(game) %
+            (DINO_SPAWN_GAP_MAX - DINO_SPAWN_GAP_MIN + 1u));
     }
-    if (game->score < MAX_SCORE) ++game->score;
+    if (game->score < DINO_MAX_SCORE) ++game->score;
     if (game->score > game->best) game->best = game->score;
 }
 void dino_game_tick(DinoGame *game, uint8_t pressed, uint8_t held)
@@ -88,7 +87,7 @@ void dino_game_tick(DinoGame *game, uint8_t pressed, uint8_t held)
         return; /* Freeze jump, animation and scroll together. */
     }
     if (game->state != DINO_RUNNING) return;
-    if ((pressed & DINO_JUMP) != 0u) game->jump_buffer_ms = JUMP_BUFFER_MS;
+    if ((pressed & DINO_JUMP) != 0u) game->jump_buffer_ms = DINO_JUMP_BUFFER_MS;
     /* Holding duck in the air accelerates descent. Once grounded, the same
      * held input immediately adopts the low stance used to clear birds. */
     uint16_t fall_step = (held & DINO_DUCK) != 0u ? 3u * DINO_TICK_MS : DINO_TICK_MS;
@@ -98,7 +97,7 @@ void dino_game_tick(DinoGame *game, uint8_t pressed, uint8_t held)
     /* Buffer a press just before landing; holding jump never causes repeats. */
     if (game->jump_ms == 0u && game->jump_buffer_ms != 0u
         && (held & DINO_DUCK) == 0u) {
-        game->jump_ms = JUMP_DURATION_MS;
+        game->jump_ms = DINO_JUMP_MS;
         game->jump_buffer_ms = 0u;
         game->ducking = false;
     }
