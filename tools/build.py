@@ -83,15 +83,29 @@ def host_test(args):
          'tests/test_dino.c', '-o', exe])
     run([exe])
 
+def simulator(args):
+    compiler = args.host_cc or os.getenv('HOST_CC') or shutil.which('gcc') or shutil.which('cc')
+    if not compiler:
+        raise RuntimeError('Simulator needs a host gcc or cc compiler.')
+    out = ROOT / 'build' / 'simulator'
+    out.mkdir(parents=True, exist_ok=True)
+    exe = out / ('dino_simulator.exe' if os.name == 'nt' else 'dino_simulator')
+    run([compiler, '-std=c11', '-O2', '-Wall', '-Wextra', '-Werror', '-pedantic',
+         '-ICore/Inc', 'Core/Src/dino_game.c', 'tools/simulator.c', '-o', exe])
+    run([exe, '--smoke'])
+    print(f'Play in a terminal: {exe}')
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('action', choices=['build', 'test', 'flash'], nargs='?', default='build')
+    parser.add_argument('action', choices=['build', 'test', 'flash', 'sim'], nargs='?', default='build')
     parser.add_argument('--config', choices=['Debug', 'Release'], default='Release')
     parser.add_argument('--gcc-path', help='Directory containing arm-none-eabi-gcc')
     parser.add_argument('--host-cc', help='Host C compiler executable')
     parser.add_argument('--programmer', help='Directory containing STM32_Programmer_CLI')
     args = parser.parse_args()
-    if args.action == 'test':
+    if args.action == 'sim':
+        simulator(args)
+    elif args.action == 'test':
         host_test(args)
     else:
         elf = build(args)

@@ -4,10 +4,13 @@
 PYTHON ?= python
 CONFIG ?= Release
 
-.PHONY: all test flash
+.PHONY: all test flash sim
 all:
 	$(PYTHON) tools/build.py build --config $(CONFIG)
 test:
 	$(PYTHON) tools/build.py test
 flash:
 	$(PYTHON) tools/build.py flash --config $(CONFIG)
+
+sim:
+	$(PYTHON) tools/build.py sim

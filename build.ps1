@@ -1,5 +1,5 @@
 param(
-    [ValidateSet('build', 'test', 'flash')][string]$Action = 'build',
+    [ValidateSet('build', 'test', 'flash', 'sim')][string]$Action = 'build',
     [ValidateSet('Debug', 'Release')][string]$Configuration = 'Release',
     [string]$GccPath = ''
 )
