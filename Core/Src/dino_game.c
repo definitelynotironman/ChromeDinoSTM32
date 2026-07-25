@@ -89,7 +89,10 @@ void dino_game_tick(DinoGame *game, uint8_t pressed, uint8_t held)
     }
     if (game->state != DINO_RUNNING) return;
     if ((pressed & DINO_JUMP) != 0u) game->jump_buffer_ms = JUMP_BUFFER_MS;
-    if (game->jump_ms > DINO_TICK_MS) game->jump_ms -= DINO_TICK_MS;
+    /* Holding duck in the air accelerates descent. Once grounded, the same
+     * held input immediately adopts the low stance used to clear birds. */
+    uint16_t fall_step = (held & DINO_DUCK) != 0u ? 3u * DINO_TICK_MS : DINO_TICK_MS;
+    if (game->jump_ms > fall_step) game->jump_ms -= fall_step;
     else game->jump_ms = 0u;
     game->ducking = (held & DINO_DUCK) != 0u && game->jump_ms == 0u;
     /* Buffer a press just before landing; holding jump never causes repeats. */
