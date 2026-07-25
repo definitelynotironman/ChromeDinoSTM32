@@ -170,6 +170,22 @@ static void test_long_courses(void)
     }
     CHECK(birds > 100u);
 }
+static void test_fast_fall(void)
+{
+    DinoGame game = running_game();
+    dino_game_tick(&game, DINO_JUMP, DINO_JUMP);
+    uint16_t before = game.jump_ms;
+    dino_game_tick(&game, 0u, DINO_DUCK);
+    CHECK(game.jump_ms == before - 3u * DINO_TICK_MS && !game.ducking);
+    game.jump_ms = 40u;
+    obstacle_at(&game, DINO_BIRD, DINO_PLAYER_COLUMN);
+    dino_game_tick(&game, 0u, DINO_DUCK);
+    CHECK(game.state == DINO_RUNNING && game.jump_ms == 0u && game.ducking);
+    game = running_game();
+    obstacle_at(&game, DINO_BIRD, DINO_PLAYER_COLUMN);
+    dino_game_tick(&game, DINO_JUMP, DINO_JUMP);
+    CHECK(game.state == DINO_RUNNING && game.jump_ms != 0u);
+}
 int main(void)
 {
     test_controls_and_collision();
@@ -177,6 +193,7 @@ int main(void)
     test_buttons();
     test_render_and_limits();
     test_long_courses();
+    test_fast_fall();
     puts("PASS: controls_and_collision, pause_and_jump_buffer, buttons, render_and_limits, long_courses");
     return 0;
 }
