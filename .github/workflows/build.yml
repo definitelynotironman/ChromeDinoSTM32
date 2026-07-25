@@ -1,0 +1,39 @@
+name: Build and verify
+on: [push, pull_request, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  host:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run portable C tests
+        run: python tools/build.py test
+      - name: Build and smoke-test simulator
+        run: python tools/build.py sim
+  firmware:
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        config: [Debug, Release]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Arm compiler
+        run: sudo apt-get update && sudo apt-get install -y gcc-arm-none-eabi libnewlib-arm-none-eabi
+      - name: Build and verify C6 memory layout
+        run: python tools/build.py build --config ${{ matrix.config }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ChromeDinoSTM32-${{ matrix.config }}
+          path: |
+            build/${{ matrix.config }}/*.elf
+            build/${{ matrix.config }}/*.hex
+            build/${{ matrix.config }}/*.bin
+            build/${{ matrix.config }}/*.map
+            build/${{ matrix.config }}/*.json
