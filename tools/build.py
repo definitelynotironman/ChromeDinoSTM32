@@ -79,7 +79,7 @@ def host_test(args):
     out.mkdir(parents=True, exist_ok=True)
     exe = out / ('dino_tests.exe' if os.name == 'nt' else 'dino_tests')
     run([compiler, '-std=c11', '-O2', '-g', '-Wall', '-Wextra', '-Werror', '-pedantic',
-         '-ICore/Inc', 'Core/Src/dino_game.c', 'Core/Src/dino_buttons.c',
+         '-ICore/Inc', 'Core/Src/dino_game.c', 'Core/Src/dino_buttons.c', 'Core/Src/dino_sprites.c',
          'tests/test_dino.c', '-o', exe])
     run([exe])
 

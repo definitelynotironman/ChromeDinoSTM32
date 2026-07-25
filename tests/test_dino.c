@@ -1,5 +1,6 @@
 #include "dino_game.h"
 #include "dino_buttons.h"
+#include "dino_sprites.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -186,6 +187,25 @@ static void test_fast_fall(void)
     dino_game_tick(&game, DINO_JUMP, DINO_JUMP);
     CHECK(game.state == DINO_RUNNING && game.jump_ms != 0u);
 }
+static void test_configuration_and_sprites(void)
+{
+    CHECK(DINO_SPAWN_GAP_MIN * DINO_SCROLL_MIN_MS > DINO_JUMP_MS + DINO_TICK_MS);
+    DinoGame game = running_game();
+    game.score = 0u;
+    CHECK(dino_game_scroll_period(&game) == DINO_SCROLL_START_MS);
+    game.score = DINO_LEVEL_POINTS;
+    CHECK(dino_game_scroll_period(&game) == DINO_SCROLL_START_MS-DINO_SPEED_STEP_MS);
+    game.score = DINO_MAX_SCORE;
+    CHECK(dino_game_scroll_period(&game) == DINO_SCROLL_MIN_MS);
+    for (unsigned glyph = 0u; glyph < 8u; ++glyph) {
+        unsigned lit_rows = 0u;
+        for (unsigned row = 0u; row < 8u; ++row) {
+            CHECK(dino_sprites[glyph][row] < 32u);
+            if (dino_sprites[glyph][row] != 0u) ++lit_rows;
+        }
+        CHECK(lit_rows != 0u);
+    }
+}
 int main(void)
 {
     test_controls_and_collision();
@@ -194,6 +214,7 @@ int main(void)
     test_render_and_limits();
     test_long_courses();
     test_fast_fall();
+    test_configuration_and_sprites();
     puts("PASS: controls_and_collision, pause_and_jump_buffer, buttons, render_and_limits, long_courses");
     return 0;
 }
