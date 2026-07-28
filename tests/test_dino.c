@@ -206,6 +206,27 @@ static void test_configuration_and_sprites(void)
         CHECK(lit_rows != 0u);
     }
 }
+static void test_object_isolation_and_repeatability(void)
+{
+    DinoGame first = running_game();
+    DinoGame same = first;
+    DinoGame idle = first;
+    for (unsigned tick = 0u; tick < 1000u; ++tick) {
+        uint8_t edge = tick % 31u == 0u ? DINO_JUMP : 0u;
+        dino_game_tick(&first, edge, 0u);
+        dino_game_tick(&same, edge, 0u);
+        CHECK(memcmp(&first, &same, sizeof first) == 0);
+    }
+    CHECK(idle.score == 0u && idle.scroll_ms == 0u && idle.state == DINO_RUNNING);
+    DinoButtons buttons;
+    for (uint8_t mask = 0u; mask < 16u; ++mask) {
+        dino_buttons_init(&buttons, 0u, UINT32_MAX - 10u);
+        CHECK(dino_buttons_poll(&buttons, mask, UINT32_MAX - 5u) == 0u);
+        CHECK(dino_buttons_poll(&buttons, mask, 14u) == mask);
+        CHECK(buttons.held == mask);
+        CHECK(dino_buttons_poll(&buttons, mask, 100u) == 0u);
+    }
+}
 int main(void)
 {
     test_controls_and_collision();
@@ -215,6 +236,8 @@ int main(void)
     test_long_courses();
     test_fast_fall();
     test_configuration_and_sprites();
-    puts("PASS: controls_and_collision, pause_and_jump_buffer, buttons, render_and_limits, long_courses");
+    test_object_isolation_and_repeatability();
+    puts("PASS: collision boundaries, jump buffering, fast fall, pause, debounce and wrap,");
+    puts("      rendering, score limits, sprites, object isolation and 32 long courses.");
     return 0;
 }
