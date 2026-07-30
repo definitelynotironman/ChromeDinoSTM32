@@ -1,4 +1,4 @@
-/* HAL infrastructure only; no assessed peripheral is configured here. */
+/* Enable infrastructure clocks; the LCD and button driver owns its GPIO. */
 #include "main.h"
 
 void HAL_MspInit(void)

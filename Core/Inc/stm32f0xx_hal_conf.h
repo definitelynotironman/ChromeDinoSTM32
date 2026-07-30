@@ -1,9 +1,8 @@
-#ifndef PRACTICAL3_STM32F0XX_HAL_CONF_H
-#define PRACTICAL3_STM32F0XX_HAL_CONF_H
+#ifndef DINO_STM32F0XX_HAL_CONF_H
+#define DINO_STM32F0XX_HAL_CONF_H
 
-/* HAL is used for clock and millisecond infrastructure. ADC/DAC work uses
- * direct registers; those HAL modules are disabled.
- */
+/* Enable only clock, GPIO, power and millisecond infrastructure.
+ * The game does not use ADC, DAC, DMA, timers or serial peripherals. */
 #define HAL_MODULE_ENABLED
 #define HAL_RCC_MODULE_ENABLED
 #define HAL_CORTEX_MODULE_ENABLED
@@ -59,4 +58,4 @@ void assert_failed(uint8_t *file, uint32_t line);
 #define assert_param(expr) ((void)0U)
 #endif
 
-#endif /* PRACTICAL3_STM32F0XX_HAL_CONF_H */
+#endif /* DINO_STM32F0XX_HAL_CONF_H */

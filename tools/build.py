@@ -10,8 +10,14 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
+LOCAL_TOOLCHAIN = ROOT / '.toolchain.local.json'
 
 def find_tool(name, explicit=None):
+    if not explicit and name == 'arm-none-eabi-gcc' and LOCAL_TOOLCHAIN.is_file():
+        try:
+            explicit = json.loads(LOCAL_TOOLCHAIN.read_text())['gcc_path']
+        except (ValueError, KeyError) as exc:
+            raise RuntimeError('Invalid .toolchain.local.json; set --gcc-path to replace it.') from exc
     if explicit:
         candidate = Path(explicit) / (name + ('.exe' if os.name == 'nt' else ''))
         if candidate.is_file():
@@ -79,6 +85,8 @@ def build(args):
                    for image in [elf, elf.with_suffix('.hex'), elf.with_suffix('.bin')]},
     }
     (out / 'build-manifest.json').write_text(json.dumps(manifest, indent=2) + '\n')
+    # Save a successful local selection; this machine-specific file is ignored.
+    LOCAL_TOOLCHAIN.write_text(json.dumps({'gcc_path': str(tools.resolve())}, indent=2) + '\n')
     print(f'Firmware: {out}', flush=True)
     return elf
 
