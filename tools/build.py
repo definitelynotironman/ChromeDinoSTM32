@@ -101,6 +101,7 @@ def host_test(args):
          '-ICore/Inc', 'Core/Src/dino_game.c', 'Core/Src/dino_buttons.c', 'Core/Src/dino_sprites.c',
          'tests/test_dino.c', '-o', exe])
     run([exe])
+    run([sys.executable, ROOT / 'tests' / 'test_cubeide_project.py'])
 
 def simulator(args):
     compiler = args.host_cc or os.getenv('HOST_CC') or shutil.which('gcc') or shutil.which('cc')

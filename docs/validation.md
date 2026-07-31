@@ -40,3 +40,14 @@ pass. Source comments contain no assistant branding or unfinished TODOs.
 The board was not flashed during this work. LCD wiring, contrast, electrical
 timing and physical buttons still need the checks in [board.md](board.md).
 No commits were pushed and hosted CI was not run, per the final instruction.
+
+## CubeIDE configuration repair
+
+Added native STM32F051C6Tx project metadata, Debug/Release configurations,
+matching ST-LINK launch files and a device/clock reference. CubeIDE 2.2.0
+recognizes both targets and generated their Makefiles. The generated Debug and
+Release firmware was compiled with standalone GNU Arm GCC and native GNU Make;
+flash/RAM sizes match the table above, and both images pass vector checks.
+Seven metadata regression tests and the gameplay suite pass. See
+[cubeide.md](cubeide.md) for the one-time re-import of the earlier generic project
+and the limits of the local debugger validation.

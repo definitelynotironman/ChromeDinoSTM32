@@ -57,3 +57,9 @@ Host simulation and binary checks cannot prove physical LCD timing, wiring,
 button behavior or operation on the actual board. Use the board checks in
 [board.md](board.md) after programming. The GitHub workflow is supplied for
 future pushes; local completion does not imply that hosted CI has run.
+
+## Native CubeIDE project regression
+
+Host tests also check the STM32F051C6Tx project metadata and matching Debug and
+Release launch settings. See [cubeide.md](cubeide.md) for native import,
+IDE-generated build verification and recovery from a generic empty import.

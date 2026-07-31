@@ -3,6 +3,24 @@
 A Dino runner in C for the UCT STM32F051 development board, adapted to its
 onboard WC1602A 16x2 character LCD. No additional display is required.
 
+## STM32CubeIDE
+
+The native project targets **STM32F051C6Tx (LQFP48)**. Import this directory
+with **File > Import > General > Existing Projects into Workspace**. Build the
+**Debug** configuration, then launch **ChromeDinoSTM32 Debug** with ST-LINK/SWD.
+CubeIDE produces `Debug/ChromeDinoSTM32.elf`; its Release configuration produces
+`Release/ChromeDinoSTM32.elf`. The command-line build uses `build/Debug/` and
+`build/Release/` separately.
+
+If you previously imported the generic Default project, remove that workspace
+entry with **Delete project contents on disk unchecked**, then import this
+folder again. This reloads the corrected MCU project definition. The supplied
+Default launch file also points to the real Debug configuration for compatibility.
+
+The `.ioc` records the device and clock reference. Do not regenerate sources
+from it: the game configures LCD and buttons in its own board driver.
+See [CubeIDE setup and recovery](docs/cubeide.md).
+
 ## Build
 
 Install Python 3.9+ and GNU Arm GCC 11+ (STM32CubeIDE's bundled compiler is detected
