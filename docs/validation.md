@@ -51,3 +51,12 @@ flash/RAM sizes match the table above, and both images pass vector checks.
 Seven metadata regression tests and the gameplay suite pass. See
 [cubeide.md](cubeide.md) for the one-time re-import of the earlier generic project
 and the limits of the local debugger validation.
+
+## Live workspace recovery
+
+The loaded CubeIDE workspace still contained a generic Default configuration.
+Closing the project inside the IDE, restoring its saved metadata and reopening
+it reloaded both native Debug and Release configurations. Debug was selected
+and built in the running IDE with zero errors. The build reported 18 warnings
+about absent optional cyclomatic-complexity output files; it produced the ELF,
+HEX and BIN firmware. The seven project-metadata checks pass.

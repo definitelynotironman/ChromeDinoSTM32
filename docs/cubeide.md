@@ -49,3 +49,23 @@ native GNU Make; both firmware images passed C6 memory/reset-vector checks.
 The installed IDE's bundled executables could not start from the automation
 process, so Make was invoked separately against the IDE-generated files.
 Launching a physical debugger session still requires the connected board.
+
+## Reload settings in the running workspace
+
+If the Build Configurations menu still lists only Default, close the project
+with **Project > Close Project** before restoring its saved configuration.
+With the project closed, run this from the repository directory:
+
+```powershell
+git restore -- .project .cproject .settings/language.settings.xml "ChromeDinoSTM32 Debug.launch" "ChromeDinoSTM32 Default.launch" "ChromeDinoSTM32 Release.launch"
+```
+
+Double-click the closed project to reopen it. Select the project once, then
+check **Project > Build Configurations > Set Active**: Debug and Release should
+both be present. This sequence was verified in the running CubeIDE workspace.
+It reloads the native project without creating another generic C/C++ import.
+
+The restore command discards local changes to only these six configuration
+files, so preserve any intentional custom settings before using it. Building
+only compiles the firmware. To download it, use the supplied STM32/ST-LINK Debug
+launch; if execution stops at main, choose Resume (F8).
