@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="38" viewBox="0 0 100 38" role="img" aria-labelledby="title" shape-rendering="crispEdges">
+  <title id="title">CMSIS</title>
+  <!-- Stepped corners and a two-pixel shadow retain the game's pixel style. -->
+  <path d="M7 2H91V5H95V9H97V27H95V31H91V34H7V31H3V27H1V9H3V5H7Z" transform="translate(2 2)" fill="#bbc4ad"/>
+  <path d="M7 2H91V5H95V9H97V27H95V31H91V34H7V31H3V27H1V9H3V5H7Z" fill="#202c25" stroke="#485644" stroke-width="2"/>
+  <path d="M9 5H89" fill="none" stroke="#ffffff" stroke-opacity=".12" stroke-width="1"/>
+  <path fill="#d8c77c" d="M19 9h2v2h-2zM17 11h6v2h-6zM13 13h14v2h-14zM11 15h18v2h-18zM13 17h14v2h-14zM11 19h2v2h-2zM27 19h2v2h-2zM13 21h14v2h-14zM15 23h10v2h-10zM19 25h2v2h-2z"/>
+  <!-- Smooth, full-size text stays legible while the artwork uses pixel edges. -->
+  <text x="40" y="23" fill="#f3f5eb" font-family="Consolas,'DejaVu Sans Mono',monospace" font-size="15" font-weight="700" shape-rendering="auto" text-rendering="optimizeLegibility">CMSIS</text>
+</svg>

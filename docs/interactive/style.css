@@ -6,3 +6,8 @@
 @media(prefers-reduced-motion:reduce){:root{scroll-behavior:auto}.reading-progress span,.dino-hint{transition:none}}
 
 @media(min-width:701px) and (max-width:1100px){.content-shell{padding-right:84px}.page-marker{padding-right:84px}}
+
+/* Separate stack badges retain readable text and wrap on narrow screens. */
+.markdown-body>p[data-tech-stack]{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:6px;line-height:1}
+.markdown-body>p[data-tech-stack]>picture{width:auto;flex:0 0 auto}
+.markdown-body>p[data-tech-stack] img{display:block;height:38px;width:auto}

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="38" viewBox="0 0 64 38" role="img" aria-labelledby="title" shape-rendering="crispEdges">
+  <title id="title">C</title>
+  <!-- Stepped corners and a two-pixel shadow retain the game's pixel style. -->
+  <path d="M7 2H55V5H59V9H61V27H59V31H55V34H7V31H3V27H1V9H3V5H7Z" transform="translate(2 2)" fill="#bbc4ad"/>
+  <path d="M7 2H55V5H59V9H61V27H59V31H55V34H7V31H3V27H1V9H3V5H7Z" fill="#202c25" stroke="#485644" stroke-width="2"/>
+  <path d="M9 5H53" fill="none" stroke="#ffffff" stroke-opacity=".12" stroke-width="1"/>
+  <path fill="#75a8d7" d="M16 5h8v3h5v4h4v12h-4v4h-5v3h-8v-3h-5v-4H7V12h4V8h5z"/><path fill="#36669b" d="M20 5h4v3h5v4h4v12h-4v4h-5v3h-4z"/><path fill="#ffffff" d="M17 11h8v2h-8zM15 13h4v2h-4zM15 15h4v2h-4zM15 17h4v2h-4zM15 19h4v2h-4zM15 21h4v2h-4zM17 23h8v2h-8z"/>
+  <!-- Smooth, full-size text stays legible while the artwork uses pixel edges. -->
+  <text x="40" y="23" fill="#f3f5eb" font-family="Consolas,'DejaVu Sans Mono',monospace" font-size="15" font-weight="700" shape-rendering="auto" text-rendering="optimizeLegibility">C</text>
+</svg>

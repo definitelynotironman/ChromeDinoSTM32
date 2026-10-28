@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="156" height="38" viewBox="0 0 156 38" role="img" aria-labelledby="title" shape-rendering="crispEdges">
+  <title id="title">STM32F0 HAL</title>
+  <!-- Stepped corners and a two-pixel shadow retain the game's pixel style. -->
+  <path d="M7 2H147V5H151V9H153V27H151V31H147V34H7V31H3V27H1V9H3V5H7Z" transform="translate(2 2)" fill="#0c1710"/>
+  <path d="M7 2H147V5H151V9H153V27H151V31H147V34H7V31H3V27H1V9H3V5H7Z" fill="#202c25" stroke="#839777" stroke-width="2"/>
+  <path d="M9 5H145" fill="none" stroke="#ffffff" stroke-opacity=".12" stroke-width="1"/>
+  <path fill="#8ed0b4" d="M15 9h2v2h-2zM19 9h2v2h-2zM23 9h2v2h-2zM15 11h2v2h-2zM19 11h2v2h-2zM23 11h2v2h-2zM11 13h18v2h-18zM15 15h2v2h-2zM23 15h2v2h-2zM11 17h6v2h-6zM19 17h2v2h-2zM23 17h6v2h-6zM15 19h2v2h-2zM23 19h2v2h-2zM11 21h18v2h-18zM15 23h2v2h-2zM19 23h2v2h-2zM23 23h2v2h-2zM15 25h2v2h-2zM19 25h2v2h-2zM23 25h2v2h-2z"/>
+  <!-- Smooth, full-size text stays legible while the artwork uses pixel edges. -->
+  <text x="40" y="23" fill="#f3f5eb" font-family="Consolas,'DejaVu Sans Mono',monospace" font-size="15" font-weight="700" shape-rendering="auto" text-rendering="optimizeLegibility">STM32F0 HAL</text>
+</svg>

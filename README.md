@@ -9,45 +9,62 @@
     </picture>
 </p>
 
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/readme/hero-dark.svg">
-    <img src="assets/readme/hero-light.svg" width="900" alt="Chrome Dino STM32. No internet. Still running. A pixel dinosaur and cacti above a dotted ground line.">
-  </picture>
-</p>
-
 <h1 align="center">ChromeDinoSTM32</h1>
 
 <p align="center">
-  <b>A tiny screen. A very familiar dinosaur.</b><br>
+  <b>A tiny screen with a familiar dinosaur.</b><br>
   Chrome's offline Dino game, adapted in C for my UCT STM32F051C6Tx development board.
 </p>
 
-<p align="center">
+<p align="center" data-tech-stack>
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/readme/tech-dark.svg">
-    <img src="assets/readme/tech-light.svg" width="900" alt="C11. Cortex-M0. 16 by 2 LCD. 32 KiB flash. 8 KiB RAM. 48 MHz.">
+    <source media="(prefers-color-scheme: dark)" srcset="assets/readme/stack/c-dark.svg">
+    <img src="assets/readme/stack/c-light.svg" width="64" height="38" alt="C">
+  </picture>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/readme/stack/stm32-hal-dark.svg">
+    <img src="assets/readme/stack/stm32-hal-light.svg" width="156" height="38" alt="STM32F0 HAL">
+  </picture>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/readme/stack/cmsis-dark.svg">
+    <img src="assets/readme/stack/cmsis-light.svg" width="100" height="38" alt="CMSIS">
+  </picture>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/readme/stack/arm-gcc-dark.svg">
+    <img src="assets/readme/stack/arm-gcc-light.svg" width="119" height="38" alt="Arm GCC">
+  </picture>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/readme/stack/cubeide-dark.svg">
+    <img src="assets/readme/stack/cubeide-light.svg" width="119" height="38" alt="CubeIDE">
+  </picture>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/readme/stack/python-dark.svg">
+    <img src="assets/readme/stack/python-light.svg" width="110" height="38" alt="Python">
+  </picture>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/readme/stack/make-dark.svg">
+    <img src="assets/readme/stack/make-light.svg" width="91" height="38" alt="Make">
   </picture>
 </p>
 
 <p align="center">
-  <a href="#the-final-build">Watch it run</a> ·
+  <a href="#the-build">Watch it run</a> ·
   <a href="#build-and-run">Build it</a> ·
   <a href="#how-the-code-works">Inside the code</a> ·
-  <a href="#the-little-dino">The little Dino</a>
+  <a href="#top">The little Dino</a>
 </p>
 
-## Why though?
+## Background
 
-I wanted to take the game that shows up when the internet gives up and put it on my development board. The board already has a screen and four buttons. That felt like enough of an excuse.
+I've always wanted to code the Chrome Dino game. I thought though that coding it on a panel with java would be too straightforward. It then hit me that I have the UCT Dev Board, where i can make it an Embedded Systems project that would be much more of exciting challenge to take.
 
-The catch is the screen. It has **16 columns and two rows of characters**. So the Dino, the cacti, the birds and the score all have to fit inside that. Apparently that is enough room for a dinosaur with places to be.
+It has enough for a classic arcade game: buttons and an LCD. So the idea fit well. 
+
+The Dev board has **16 columns and two rows of characters**. So the Dino, the cacti, the birds and the score all have to fit inside that. Which I did not expect be such a pain to get right.
 
 My objective was to make a small, playable embedded game and keep the code understandable. The final build has animated running, jumping, ducking, faster descent, obstacles, increasing speed, pause, retry and a session best score. It runs on the board's own LCD and buttons.
 
-The little Dino above is part of the README too. There is also an [interactive version](#the-little-dino) where he follows you as you read. Click him there and he runs back to his starting spot. You get to keep your place.
-
-## The final build
+## The Build
 
 <table>
 <tr>
@@ -65,7 +82,7 @@ The little Dino above is part of the README too. There is also an [interactive v
 </tr>
 </table>
 
-## The project at a glance
+## Project Overview
 
 | Part | What I am using |
 |---|---|
@@ -92,18 +109,20 @@ The little Dino above is part of the README too. There is also an [interactive v
 ## Contents
 
 1. [Playing the game](#playing-the-game)
-2. [Making a dinosaur fit](#making-a-dinosaur-fit)
+2. [Making a dinosaur fit](#making-the-dinosaur-fit)
 3. [How the code works](#how-the-code-works)
 4. [Build and run](#build-and-run)
-5. [Test it without a board](#test-it-without-a-board)
+5. [Test it without a board](#test-it)
 6. [Checks and limits](#checks-and-limits)
 7. [Repo structure](#repo-structure)
-8. [The little Dino](#the-little-dino)
+8. [The little Dino](#top)
 9. [Credits](#credits)
 
 <p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/readme/divider-dark.svg"><img src="assets/readme/divider-light.svg" width="900" alt="A pixel ground line with a small cactus."></picture></p>
 
-## Playing the game
+## Playing The Game
+
+Well I don't expect anyone reading this to have an actual UCT Dev Board laying around, but perhaps its worth explaining the controls for anyone curious to see how it aligns with the demonstration video above and the code. [An LCD+Breadboard built could work just the same with any other processor to be honest].
 
 Press **SW0** to start. From there, keep the Dino clear of whatever is coming across the screen.
 
@@ -122,7 +141,7 @@ The green status LED is on when the game is ready or running. A collision lights
 
 More timing details are in [Playing Dino](docs/gameplay.md).
 
-## Making a dinosaur fit
+## Making the Dinosaur fit
 
 This LCD does not take a framebuffer of browser graphics. Each position holds one character, and the controller gives me **eight custom 5 × 8 pixel characters** to work with.
 
@@ -161,15 +180,17 @@ For the full layout and tuning settings, see [Design and tuning](docs/architectu
 
 <p align="center"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/readme/divider-dark.svg"><img src="assets/readme/divider-light.svg" width="900" alt="A pixel ground line with a small cactus."></picture></p>
 
-## Build and run
+## Build and Run
 
-### What you need
+If somehow one would want to recreate this:
 
-- The STM32F051C6Tx board and a working ST-LINK/SWD connection.
-- STM32CubeIDE, or **Python 3.9+ and GNU Arm GCC 11+** for the command-line build.
+### You would need
+
+- The STM32F051C6Tx board (Or any processor board tbh) and a working ST-LINK/SWD connection (UART pins can also be used to flash the code if an STM32 processor is owned with no ST-LINK).
+- STM32CubeIDE (This IDE helped me quite a lot here. It is very involved and easy to use. I heard we would use it for my second embedded systmes course so i tried to familiarize myself with it), or **Python 3.9+ and GNU Arm GCC 11+** for the command-line build.
 - A host GCC compiler if you want to run the tests or desktop simulator.
 
-### STM32CubeIDE
+### STM32CubeIDE Instructions
 
 1. Choose **File → Import → General → Existing Projects into Workspace** and select this repository folder.
 2. Set **Project → Build Configurations → Set Active → Debug**.
@@ -233,7 +254,7 @@ The LCD's D4–D7 lines use **PB8, PB9, PA12 and PA15**. The default RS/E assign
 
 PA13/PA14 remain available for SWD. The `.ioc` is a device and clock reference; regenerating sources from it can overwrite the game's custom board code. More wiring and troubleshooting details are in [Board setup](docs/board.md).
 
-## Test it without a board
+## Test it
 
 Build the simulator with `python tools/build.py sim`, then run the executable it prints:
 
@@ -284,19 +305,6 @@ Makefile              Build, test, simulator and flash entry points
 build.ps1             Windows build entry point
 ```
 
-## The little Dino
-
-On GitHub, the little Dino is an animated image. GitHub's README renderer strips the scripts and page styling needed for a character to follow your scroll.
-
-For the full version, open `docs/interactive/index.html` in your browser after cloning the repository. For a live local preview, run:
-
-```sh
-python tools/preview_readme.py
-```
-
-Open the local address it prints. The page reads this same README, plays the board video, and lets the pixel Dino run down the side as you scroll. Click him and **he** goes back to the top; the page stays exactly where you left it. He waits at his starting spot until your next scroll brings him back alongside you. It also respects reduced-motion preferences.
-
-The interactive page is included in the repository; it does not need an account or a hosted service. Publishing it as a website is a separate step. The GitHub README keeps the animated preview and the full-video link either way.
 
 ## Credits
 
@@ -306,4 +314,4 @@ The pixel artwork in this README is drawn for this project. The demonstration is
 
 <p align="center"><picture><source media="(prefers-reduced-motion: reduce) and (prefers-color-scheme: dark)" srcset="assets/readme/dino-dark.png">
       <source media="(prefers-reduced-motion: reduce)" srcset="assets/readme/dino-light.png">
-      <source media="(prefers-color-scheme: dark)" srcset="assets/readme/dino-dark.gif"><img src="assets/readme/dino-light.gif" width="52" alt="The little pixel Dino, still running."></picture><br><sub>Still running. <a href="#top">Back to the top?</a></sub></p>
+      <source media="(prefers-color-scheme: dark)" srcset="assets/readme/dino-dark.gif"><img src="assets/readme/dino-light.gif" width="52" alt="The little pixel Dino, still running."></picture><br><sub>THANK YOU FOR READING! <a href="#top">You can run along back to the top now.</a></sub></p>

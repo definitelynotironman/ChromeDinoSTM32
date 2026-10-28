@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="91" height="38" viewBox="0 0 91 38" role="img" aria-labelledby="title" shape-rendering="crispEdges">
+  <title id="title">Make</title>
+  <!-- Stepped corners and a two-pixel shadow retain the game's pixel style. -->
+  <path d="M7 2H82V5H86V9H88V27H86V31H82V34H7V31H3V27H1V9H3V5H7Z" transform="translate(2 2)" fill="#bbc4ad"/>
+  <path d="M7 2H82V5H86V9H88V27H86V31H82V34H7V31H3V27H1V9H3V5H7Z" fill="#202c25" stroke="#485644" stroke-width="2"/>
+  <path d="M9 5H80" fill="none" stroke="#ffffff" stroke-opacity=".12" stroke-width="1"/>
+  <path fill="#c4a6dd" d="M15 9h10v2h-10zM13 11h14v2h-14zM15 13h10v2h-10zM17 15h4v2h-4zM17 17h4v2h-4zM17 19h4v2h-4zM15 21h4v2h-4zM15 23h4v2h-4zM13 25h4v2h-4z"/>
+  <!-- Smooth, full-size text stays legible while the artwork uses pixel edges. -->
+  <text x="40" y="23" fill="#f3f5eb" font-family="Consolas,'DejaVu Sans Mono',monospace" font-size="15" font-weight="700" shape-rendering="auto" text-rendering="optimizeLegibility">Make</text>
+</svg>

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="110" height="38" viewBox="0 0 110 38" role="img" aria-labelledby="title" shape-rendering="crispEdges">
+  <title id="title">Python</title>
+  <!-- Stepped corners and a two-pixel shadow retain the game's pixel style. -->
+  <path d="M7 2H101V5H105V9H107V27H105V31H101V34H7V31H3V27H1V9H3V5H7Z" transform="translate(2 2)" fill="#0c1710"/>
+  <path d="M7 2H101V5H105V9H107V27H105V31H101V34H7V31H3V27H1V9H3V5H7Z" fill="#202c25" stroke="#839777" stroke-width="2"/>
+  <path d="M9 5H99" fill="none" stroke="#ffffff" stroke-opacity=".12" stroke-width="1"/>
+  <path fill="#76acd3" d="M13 7h10v3h3v8H15v4H9v-9h4z"/><path fill="#edcc6e" d="M26 29H16v-3h-3v-8h11v-4h6v9h-4z"/><path fill="#19251f" d="M17 10h2v2h-2zM22 24h2v2h-2z"/>
+  <!-- Smooth, full-size text stays legible while the artwork uses pixel edges. -->
+  <text x="40" y="23" fill="#f3f5eb" font-family="Consolas,'DejaVu Sans Mono',monospace" font-size="15" font-weight="700" shape-rendering="auto" text-rendering="optimizeLegibility">Python</text>
+</svg>

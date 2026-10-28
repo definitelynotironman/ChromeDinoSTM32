@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="119" height="38" viewBox="0 0 119 38" role="img" aria-labelledby="title" shape-rendering="crispEdges">
+  <title id="title">CubeIDE</title>
+  <!-- Stepped corners and a two-pixel shadow retain the game's pixel style. -->
+  <path d="M7 2H110V5H114V9H116V27H114V31H110V34H7V31H3V27H1V9H3V5H7Z" transform="translate(2 2)" fill="#bbc4ad"/>
+  <path d="M7 2H110V5H114V9H116V27H114V31H110V34H7V31H3V27H1V9H3V5H7Z" fill="#202c25" stroke="#485644" stroke-width="2"/>
+  <path d="M9 5H108" fill="none" stroke="#ffffff" stroke-opacity=".12" stroke-width="1"/>
+  <path fill="#8cc4e8" d="M11 9h18v2h-18zM11 11h2v2h-2zM27 11h2v2h-2zM11 13h18v2h-18zM11 15h2v2h-2zM17 15h2v2h-2zM21 15h2v2h-2zM27 15h2v2h-2zM11 17h2v2h-2zM17 17h2v2h-2zM21 17h2v2h-2zM27 17h2v2h-2zM11 19h2v2h-2zM17 19h2v2h-2zM21 19h2v2h-2zM27 19h2v2h-2zM11 21h2v2h-2zM17 21h6v2h-6zM27 21h2v2h-2zM11 23h2v2h-2zM27 23h2v2h-2zM11 25h18v2h-18z"/>
+  <!-- Smooth, full-size text stays legible while the artwork uses pixel edges. -->
+  <text x="40" y="23" fill="#f3f5eb" font-family="Consolas,'DejaVu Sans Mono',monospace" font-size="15" font-weight="700" shape-rendering="auto" text-rendering="optimizeLegibility">CubeIDE</text>
+</svg>
