@@ -18,3 +18,13 @@ the supplied Practical 3 board driver. The game engine, input object, LCD frame
 interface, application loop, tests and build tooling implement this project.
 The project is a character-LCD adaptation inspired by the offline Dino game;
 its sprites are defined locally and it does not bundle browser game assets.
+
+## Interactive README
+
+The optional local README viewer bundles Marked 17.0.5, by Christopher Jeffrey
+and the Marked contributors, under the MIT licence. Its licence is retained in
+`docs/interactive/vendor/MARKED-LICENSE.md`. The firmware does not use Marked.
+
+The README's pixel artwork is drawn locally for this project. The demonstration
+preview is derived from the supplied `demonstration/final_build.mp4` recording;
+the original video is retained unchanged.

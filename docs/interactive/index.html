@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Chrome Dino on an STM32F051C6Tx. A 16 by 2 LCD, four buttons and one persistent dinosaur.">
+  <meta name="color-scheme" content="light dark">
+  <base href="../../">
+  <title>ChromeDinoSTM32 — The field guide</title>
+  <link rel="icon" href="assets/readme/dino-light.png">
+  <link rel="stylesheet" href="docs/interactive/style.css">
+  <script src="docs/interactive/vendor/marked.umd.js" defer></script>
+  <script src="docs/interactive/readme-copy.js" defer></script>
+  <script src="docs/interactive/reader.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#readme">Skip to the README</a>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Chrome Dino STM32, back to top"><span class="brand-pixel" aria-hidden="true"></span>DINO<span class="brand-slash">/</span>STM32</a>
+    <nav aria-label="Page controls">
+      <a href="#the-final-build">Demo</a>
+      <a href="#build-and-run">Build</a>
+      <button id="runner-toggle" type="button" aria-pressed="true">Dino: on</button>
+      <a class="source-link" href="https://github.com/definitelynotironman/ChromeDinoSTM32">Source ↗</a>
+    </nav>
+  </header>
+  <div class="page-marker" aria-hidden="true"><span>FIELD GUIDE</span><span>01 / STM32F051C6Tx</span></div>
+  <main class="content-shell">
+    <article id="readme" class="markdown-body" aria-busy="true">
+      <p class="loading-message">The Dino is finding his feet…</p>
+    </article>
+    <noscript><p>This view needs JavaScript to render the README and move the Dino. <a href="README.md">Open the Markdown file</a> instead.</p></noscript>
+  </main>
+  <footer class="site-footer"><span class="footer-pixels" aria-hidden="true">▪ ▪ ▪</span><span>Still running. Thanks for reading.</span><a href="#top">Back to the start ↑</a></footer>
+  <button id="scroll-dino" type="button" aria-label="Send the Dino back to his starting spot" title="Send me home. Keep your place." hidden>
+    <canvas width="24" height="24" aria-hidden="true"></canvas>
+    <span class="dino-hint" aria-hidden="true">↑ HOME</span>
+  </button>
+  <div class="reading-progress" aria-hidden="true"><span></span></div>
+</body>
+</html>
